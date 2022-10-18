@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>填写idea-note API</title>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <link rel="stylesheet" href="css/options.css" />
+    <link rel="stylesheet" href="css/comm.css" />
+  </head>
+
+  <body>
+    <div class="main">
+      <div class="header">
+        <div class="logo">
+          <img src="./logo.png" width="50" height="50" alt="" />
+        </div>
+      </div>
+      <div class="options">
+        <div class="options_header">idea-note for Chrome</div>
+        <div class="container">
+          <div class="box">
+            <input type="text" id="api" placeholder="请输入idea-note API地址" />
+          </div>
+          <div class="box">
+            <input type="text" id="apiPassword" placeholder="请输入idea-note 密码" />
+          </div>
+          <button class="btn" type="button" id="save">保存</button>
+          <!-- <div>
+            <label class="quickBox" 
+              >快捷记录
+              <input type="checkbox" id='quick'  />
+              <span class="checkmark"></span>
+            </label>
+          </div> -->
+
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; <span id="current_year"></span> idea-note for chrome by happen
+      </div>
+    </div>
+
+    <script src="js/options.js"></script>
+  </body>
+</html>
