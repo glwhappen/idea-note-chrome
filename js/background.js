@@ -15,16 +15,23 @@ chrome.contextMenus.create({
   id: "flomoLink",
   onclick: sendToFlomoWithLink,
 });
-
+/**
+ * 将链接保存到idea-note
+ */
 function sendToFlomoWithLink(tab) {
   var url = localStorage.api || "";
+  let url_formatted_text = localStorage.url_formatted_text || "[$title$]($url$)"
+
   var opt = null;
   var content = "";
   if (url == "") {
     alert("请填写API后才能使用呃~(右键)");
   } else {
     chrome.tabs.getSelected(null, function (tab) {
-      content = "标题：" + tab.title + "，来自：" + tab.url;
+      url_formatted_text = url_formatted_text.replace('$title$', tab.title)
+      url_formatted_text = url_formatted_text.replace('$url$', tab.url)
+
+      content = url_formatted_text;
 
       var data = {
         content: content,
@@ -37,6 +44,9 @@ function sendToFlomoWithLink(tab) {
 
 function sendToFlomoWithText(info, tab) {
   var url = localStorage.api || "";
+  let right_formatted_text = localStorage.right_formatted_text || "$text$ \n$url$"
+
+
   var opt = null;
   var content = "";
   var currentUrl = "";
@@ -45,7 +55,12 @@ function sendToFlomoWithText(info, tab) {
   } else {
     chrome.tabs.getSelected(null, function (tab) {
       currentUrl = tab.url;
-      content = info.selectionText + " 来自：" + currentUrl;
+
+      right_formatted_text = right_formatted_text.replace('$text$', info.selectionText)
+      right_formatted_text = right_formatted_text.replace('$title$', tab.title)
+      right_formatted_text = right_formatted_text.replace('$url$', currentUrl)
+
+      content = right_formatted_text;
       var data = {
         content: content,
       };
@@ -57,6 +72,8 @@ function sendToFlomoWithText(info, tab) {
 
 function sendToIdeaNote(info, tab) {
   var url = localStorage.api || "";
+  let right_formatted_text = localStorage.right_formatted_text || "$text$ \n$url$"
+
   var currentUrl = "";
   var content = "";
   if (url == "") {
@@ -64,7 +81,11 @@ function sendToIdeaNote(info, tab) {
   } else {
     chrome.tabs.getSelected(null, function (tab) {
       currentUrl = tab.url;
-      content = info + " 来自：" + currentUrl;
+      right_formatted_text = right_formatted_text.replace('$text$', info.selectionText)
+      right_formatted_text = right_formatted_text.replace('$title$', tab.title)
+      right_formatted_text = right_formatted_text.replace('$url$', currentUrl)
+
+      content = right_formatted_text;
       var data = {
         content: content,
       };
@@ -76,13 +97,14 @@ function sendToIdeaNote(info, tab) {
 
 function sendToFlomo(data, url) {
   data = {"option": "AddNoteApi", ... data}
+  pwd = localStorage.api_password
   $.ajax({
     url: url,
     type: "POST",
     dataType: "json",
     contentType: "application/json; charset=utf-8",
     beforeSend: function(request) {
-      request.setRequestHeader("password","happen");
+      request.setRequestHeader("password", pwd);
     },
     data: JSON.stringify(data),
     success: function (data) {

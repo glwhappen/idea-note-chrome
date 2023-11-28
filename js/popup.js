@@ -4,6 +4,8 @@
 function sendToIdeaNote(info, tab) {
     var url = localStorage.api || "";
     var api_password = localStorage.api_password || "";
+    let right_formatted_text = localStorage.right_formatted_text || "$text$ \n$url$"
+
     var currentUrl = "";
     var content = "";
     if (!url || !api_password) {
@@ -11,7 +13,10 @@ function sendToIdeaNote(info, tab) {
     } else {
       chrome.tabs.getSelected(null, function (tab) {
         currentUrl = tab.url;
-        content = info + " 来自：" + currentUrl;
+        right_formatted_text = right_formatted_text.replace('$text$', info)
+        right_formatted_text = right_formatted_text.replace('$url$', currentUrl)
+
+        content = right_formatted_text
         var data = {
           content: content,
         };

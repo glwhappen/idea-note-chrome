@@ -20,12 +20,39 @@
         <div class="options_header">idea-note for Chrome</div>
         <div class="container">
           <div class="box">
+            <h2>API地址</h2>
+          </div>
+          <div class="box">
             <input type="text" id="api" placeholder="请输入idea-note API地址" />
+          </div>
+          <div class="box">
+            <h2>密码</h2>
           </div>
           <div class="box">
             <input type="text" id="apiPassword" placeholder="请输入idea-note 密码" />
           </div>
+          <div class="box">
+            <h2>右键保存格式</h2>
+          </div>
+
+          <div class="box">
+            <textarea type="text" name="" id="right_formatted_text" rows="5" placeholder="右键保存格式"></textarea>
+          </div>
+          
+          <div class="box">
+            <h2>链接保存格式</h2>
+          </div>
+          <div class="box">
+            <textarea type="text" name="" id="url_formatted_text" rows="5" placeholder="链接保存格式"></textarea>
+          </div>
           <button class="btn" type="button" id="save">保存</button>
+          <div class="box left">
+            <ul>
+              <li><h3>1. $text$ 鼠标选中的内容</h3></li>
+              <li><h3>2. $title$ 浏览器最上面的网页名字</h3></li>
+              <li><h3>1. $url$ 网址</h3></li>
+            </ul>
+          </div>
           <!-- <div>
             <label class="quickBox" 
               >快捷记录
